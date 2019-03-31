@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settings>
+    <connections>
+        <connection serverName="DEV1">
+            <channel>channel#1</channel>
+            <hostESB>12.345.6.78</hostESB>
+            <portESB>8887</portESB>
+            <queueManager>DEV1.QM</queueManager>
+			<hostSiebelServer>123.456.78.910</hostSiebelServer>
+			<portSiebelServer>1234</portSiebelServer>
+			<enterpriseServer>enterprise_server</enterpriseServer>
+        </connection>
+        <connection serverName="DEV2">
+            <channel>channel#2</channel>
+            <hostESB>87.654.3.21</hostESB>
+            <portESB>8888</portESB>
+            <queueManager>DEV2.QM</queueManager>
+			<hostSiebelServer>109.876.54.321</hostSiebelServer>
+			<portSiebelServer>4321</portSiebelServer>
+			<enterpriseServer>enterprise_server</enterpriseServer>
+        </connection>
+    </connections>
+</settings>

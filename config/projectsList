@@ -1,0 +1,8 @@
+<projectsList>
+<project name="TestProject#1">
+<filePath>path-to-file</filePath>
+</project>
+<project name="TestProject#2">
+<filePath>path-to-file</filePath>
+</project>
+</projectsList>

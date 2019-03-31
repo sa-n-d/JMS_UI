@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="240.0" maxWidth="560.0" minHeight="240.0" minWidth="560.0" prefHeight="240.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingsViewController">
+   <children>
+      <ChoiceBox fx:id="serverName" layoutX="150.0" layoutY="13.0" prefHeight="25.0" prefWidth="124.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="15.0" />
+      <Label layoutX="30.0" layoutY="15.0" text="ServerName:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="hostESB" layoutX="150.0" layoutY="64.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="85.0" />
+      <TextField fx:id="portESB" layoutX="150.0" layoutY="97.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="120.0" />
+      <TextField fx:id="queueManager" layoutX="150.0" layoutY="167.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="190.0" />
+      <TextField fx:id="channel" layoutX="150.0" layoutY="131.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="155.0" />
+      <Label layoutX="36.0" layoutY="65.0" text="Host:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="102.0" text="Port:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="125.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="136.0" text="Channel:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="160.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="172.0" text="QueueManager:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="195.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="205.0" layoutY="60.0" text="ESB" textFill="#971010" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="60.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="hostSiebel" layoutX="403.0" layoutY="85.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="85.0" />
+      <TextField fx:id="portSiebel" layoutX="403.0" layoutY="120.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="120.0" />
+      <TextField fx:id="enterprise" layoutX="403.0" layoutY="155.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="155.0" />
+      <Label layoutX="428.0" layoutY="60.0" text="Siebel Server" textFill="#971010">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="320.0" layoutY="90.0" text="Host:" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="90.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="320.0" layoutY="125.0" text="Port:" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="125.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="318.0" layoutY="152.0" prefHeight="32.0" prefWidth="60.0" text="Enterprise Server:" wrapText="true" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="155.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="saveButton" layoutX="444.0" layoutY="197.0" mnemonicParsing="false" style="-fx-background-color: #8ce886; -fx-background-radius: 8; -fx-border-color: grey; -fx-border-radius: 8;" text="Save" />
+   </children>
+</AnchorPane>
