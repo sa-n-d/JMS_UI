@@ -46,6 +46,10 @@ public class NewRequestViewController {
         });
     }
 
+    /**
+     * Method sets selected project
+     * @param project   selected project
+     */
     public void setProject(Project project){
         this.project = project;
     }

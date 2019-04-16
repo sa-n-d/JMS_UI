@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import parsers.Project;
@@ -19,7 +20,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("fxml/mainWindow.fxml"));
         primaryStage.setTitle("JMS-UI");
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.setScene(new Scene(root, 1600, 900));
+        primaryStage.setMaximized(true);
         primaryStage.setMinWidth(640);
         primaryStage.setMinHeight(360);
         primaryStage.show();
@@ -41,7 +43,10 @@ public class Main extends Application {
                             yes, no, cancel);
                     Optional<ButtonType> saveResult = alert.showAndWait();
                     ButtonType bt = saveResult.get();
-                    if(bt == ButtonType.CANCEL) event.consume();
+                    if(bt == ButtonType.CANCEL || bt.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE){
+                        event.consume();
+                        return;
+                    }
                     if(bt == ButtonType.YES){
                         if(project.getFileDirectory() == null){
                             FXMLLoader loader = new FXMLLoader();
@@ -56,9 +61,12 @@ public class Main extends Application {
                             stage.setResizable(false);
                             SaveNewProjectViewController controller = loader.getController();
                             controller.setProject(project);
+                            stage.setOnCloseRequest(closeEvent -> {
+                                event.consume();
+                            });
                             stage.showAndWait();
                         }
-                        project.transformToXmlFile();
+                        if(!event.isConsumed())project.transformToXmlFile();
                     }
                 }
             }

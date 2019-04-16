@@ -14,6 +14,24 @@
             <artifactId>com.ibm.mq.allclient</artifactId>
             <version>9.1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>siebel.unit</groupId>
+            <artifactId>siebel</artifactId>
+            <version>1.0</version>
+            <systemPath>${basedir}\jars\Siebel.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>siebelj.enu.unit</groupId>
+            <artifactId>siebelji.enu</artifactId>
+            <version>1.0</version>
+            <systemPath>${basedir}\jars\SiebelJI_enu.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>siebelj.rus.unit</groupId>
+            <artifactId>siebelji.rus</artifactId>
+            <version>1.0</version>
+            <systemPath>${basedir}\jars\SiebelJI_rus.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>

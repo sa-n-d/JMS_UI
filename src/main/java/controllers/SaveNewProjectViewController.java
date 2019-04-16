@@ -42,8 +42,10 @@ public class SaveNewProjectViewController {
         directoryButton.setOnAction(event -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             File file = directoryChooser.showDialog(directoryButton.getScene().getWindow());
-            this.directoryPath = file.getAbsolutePath();
-            if(directoryPath != null) directoryTextField.setText(directoryPath);
+            if(file != null){
+                this.directoryPath = file.getAbsolutePath();
+                directoryTextField.setText(directoryPath);
+            }
         });
 
         saveButton.setOnAction(event -> {
@@ -64,6 +66,10 @@ public class SaveNewProjectViewController {
         });
     }
 
+    /**
+     * Set project for saving
+     * @param project
+     */
     public void setProject(Project project){
         stage = (Stage) this.fileNameTextField.getScene().getWindow();
         this.project = project;

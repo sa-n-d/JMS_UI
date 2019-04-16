@@ -45,6 +45,7 @@ public class ProjectParser {
             transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.METHOD, "html");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         } catch (ParserConfigurationException e) {
             System.out.println("Ошибка парсера конфигурации проектов");
             e.printStackTrace();

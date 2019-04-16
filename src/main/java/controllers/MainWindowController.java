@@ -7,20 +7,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jms.JMSManager;
+import transport.JMSManager;
 import parsers.Project;
 import parsers.ProjectParser;
 import parsers.SettingsParser;
+import transport.SiebelModeler;
 import utility.TreeProjectCell;
 
 import java.io.File;
@@ -74,16 +72,21 @@ public class MainWindowController {
     @FXML
     private TextArea responseTextArea;
 
+    @FXML
+    private CheckBox modelingCheckBox;
+
     //@FXML
     //private ContextMenu projectContextMenu;
 
     private String currentServer;
     private JMSManager jmsManager;
+    private SiebelModeler siebelModeler;
     private Project selectedProject;
     private String currentRequestName;
     private String selectedProjectType;
     private String inputQueue;
     private String outputQueue;
+    private String wfName;
     private boolean connectionIsActive = false;
     private ArrayList<Project> listOfProjects;
 
@@ -103,27 +106,45 @@ public class MainWindowController {
 
     @FXML
     void runClicked() {
-        if(connectionIsActive && selectedProject != null){
-            if(selectedProject.getType().equals("input")){
-                String xmlRequest = workingTextArea.getText();
-                responseTextArea.clear();
-                jmsManager.sendMessage(xmlRequest, inputQueue, outputQueue);
+        String xmlRequest = workingTextArea.getText();
+
+        if(selectedProject != null){
+            if(modelingCheckBox.isSelected()){
+                if(serverName.getValue() != null){
+                    if(selectedProject.getType().equals("input")) siebelModeler.wfModeling(wfName, xmlRequest);
+                    else loggerTextArea.appendText("Моделирование доступно для projectType = 'input'\n");
+                }
+                else loggerTextArea.appendText("Необходимо выбрать сервер для моделирования\n");
             }
-            else{
-                String dummyXML = workingTextArea.getText();
-                responseTextArea.clear();
-                jmsManager.runDummy(dummyXML, inputQueue, outputQueue);
-                loggerTextArea.appendText("Заглушка активирована\n");
+            else {
+                if(connectionIsActive){
+                    if(selectedProject.getType().equals("input")){
+                        responseTextArea.clear();
+                        jmsManager.sendMessage(xmlRequest, inputQueue, outputQueue);
+                    }
+                    else{
+                        String dummyXML = workingTextArea.getText();
+                        responseTextArea.clear();
+                        jmsManager.runDummy(dummyXML, inputQueue, outputQueue);
+                        loggerTextArea.appendText("Заглушка активирована\n");
+                    }
+                }
+                else{
+                    loggerTextArea.appendText("Необходимо подключиться к шине\n");
+                }
             }
         }
-        else if(!connectionIsActive){
-            loggerTextArea.appendText("Необходимо выбрать сервер\n");
+        else {
+            loggerTextArea.appendText("Не выбран проект\n");
         }
+
+
+
     }
 
     @FXML
     void stopClicked(){
-        if(jmsManager.dummyIsRunning()){
+        if(jmsManager.dummyIsActive()){
             jmsManager.stopDummy();
             loggerTextArea.appendText("Заглушка отключена\n");
         }
@@ -148,15 +169,8 @@ public class MainWindowController {
                 jmsManager.closeCurrentConnection();
             }
             Map<String, String> connParam = SettingsParser.connectSettings.get(currentServer);
-            connectionIsActive = jmsManager.setConnection(connParam.get("hostESB"), connParam.get("portESB"),
+            jmsManager.setConnection(connParam.get("hostESB"), connParam.get("portESB"),
                     connParam.get("channel"), connParam.get("queueManager"));
-            if (connectionIsActive) {
-                statusImage.setImage(new Image("/graphics/icons/connectStatusImage.png"));
-                loggerTextArea.appendText("Установлено соединение с шиной сервера " + currentServer + "\n");
-            } else {
-                statusImage.setImage(new Image("/graphics/icons/disconnectStatusImage.png"));
-                loggerTextArea.appendText("Не удалось установить соединение с шиной сервера " + currentServer + "\n");
-            }
         }
     }
 
@@ -207,7 +221,8 @@ public class MainWindowController {
     @FXML
     void initialize() {
 
-        jmsManager = new JMSManager(this.responseTextArea, this.loggerTextArea);
+        jmsManager = new JMSManager(this);
+        siebelModeler = new SiebelModeler(this);
 
         // Распарсить файл конфига и получить параметры (static field)
         SettingsParser.getConnectSettings();
@@ -246,6 +261,7 @@ public class MainWindowController {
                             selectedProjectType = project.getType();
                             inputQueue = project.getInputQueue();
                             outputQueue = project.getOutputQueue();
+                            wfName = project.getWorkFlowName();
                             String xmlRequest = project.requests.get(currentRequestName);
                             this.workingTextArea.setText(xmlRequest);
                             break;
@@ -255,22 +271,22 @@ public class MainWindowController {
             }
         });
 
+        ContextMenu loggerContextManu = new ContextMenu();
+        MenuItem clearItem = new MenuItem("Clear");
+        loggerContextManu.getItems().add(clearItem);
+        clearItem.setOnAction(event -> loggerTextArea.clear());
+        loggerTextArea.setContextMenu(loggerContextManu);
+
         serverName.setOnAction(event -> {
             if(connectionIsActive){
                 jmsManager.closeCurrentConnection();
             }
             currentServer = serverName.getValue();
             Map<String,String> connParam = SettingsParser.connectSettings.get(currentServer);
-            connectionIsActive = jmsManager.setConnection(connParam.get("hostESB"), connParam.get("portESB"),
+            jmsManager.setConnection(connParam.get("hostESB"), connParam.get("portESB"),
                     connParam.get("channel"), connParam.get("queueManager"));
-            if(connectionIsActive) {
-                statusImage.setImage(new Image("/graphics/icons/connectStatusImage.png"));
-                loggerTextArea.appendText("Установлено соединение с шиной сервера " + currentServer + "\n");
-            }
-            else {
-                statusImage.setImage(new Image("/graphics/icons/disconnectStatusImage.png"));
-                loggerTextArea.appendText("Не удалось установить соединение с шиной сервера " + currentServer + "\n");
-            }
+            siebelModeler.setConnection(connParam.get("hostSiebelServer"), connParam.get("portSiebelServer"),
+                    connParam.get("enterpriseServer"));
         });
 
     }
@@ -307,6 +323,27 @@ public class MainWindowController {
             }
             projectsTree.setRoot(rootItem);
         }
+    }
+
+    public void appendLoggerText(String text){
+        loggerTextArea.appendText(text);
+    }
+
+    public void setConnectionStatus(boolean isActive){
+        if(isActive){
+            this.connectionIsActive = true;
+            statusImage.setImage(new Image("/graphics/icons/connectStatusImage.png"));
+            this.loggerTextArea.appendText("Соединение с шиной установлено\n");
+        }
+        else {
+            this.connectionIsActive = false;
+            statusImage.setImage(new Image("/graphics/icons/disconnectStatusImage.png"));
+            this.loggerTextArea.appendText("Соединение с шиной разорвано\n");
+        }
+    }
+
+    public void setOutputText(String text){
+        this.responseTextArea.setText(text);
     }
 
 }

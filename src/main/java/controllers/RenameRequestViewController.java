@@ -1,7 +1,5 @@
 package controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -10,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import parsers.Project;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class RenameRequestViewController {
 
@@ -48,11 +49,19 @@ public class RenameRequestViewController {
         });
     }
 
+    /**
+     * Method sets selected project and request
+     * @param project           selected project
+     * @param requestName       selected request
+     */
     public void setProject(Project project, String requestName){
         this.project = project;
         this.requestName = requestName;
     }
 
+    /**
+     * Method renames selected request
+     */
     private void changeName(){
         String newRequestName = this.textField.getText();
         if(project.requests.containsKey(newRequestName)){

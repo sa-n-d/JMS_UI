@@ -11,7 +11,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #2e3348;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1366.0" style="-fx-background-color: #2e3348;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainWindowController">
    <children>
       <SplitPane dividerPositions="0.23021001615508885" layoutX="20.0" layoutY="82.0" prefHeight="582.0" prefWidth="788.0" style="-fx-background-radius: 5;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <items>
@@ -70,7 +70,7 @@
               <items>
                   <SplitPane dividerPositions="0.5" pickOnBounds="false" prefHeight="160.0" prefWidth="200.0" style="-fx-border-radius: 10;">
                      <items>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0">
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="400.0">
                            <children>
                               <TextArea fx:id="workingTextArea" cacheShape="false" layoutX="15.0" layoutY="13.0" prefHeight="509.0" prefWidth="491.0" style="-fx-border-radius: 5;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="26.0" />
                               <AnchorPane layoutX="46.0" layoutY="6.0" prefHeight="25.0" prefWidth="502.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
@@ -80,7 +80,7 @@
                                           <Image url="@../graphics/icons/runImage.png" />
                                        </image>
                                     </ImageView>
-                                    <ProgressBar layoutX="34.0" layoutY="4.0" prefHeight="18.0" prefWidth="77.0" progress="0.0" AnchorPane.leftAnchor="30.0" />
+                                    <ProgressBar layoutX="34.0" layoutY="4.0" prefHeight="18.0" prefWidth="77.0" progress="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="5.0" />
                                     <ChoiceBox fx:id="serverName" layoutX="338.0" layoutY="8.0" prefHeight="25.0" prefWidth="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     <ImageView fx:id="statusImage" fitHeight="15.0" fitWidth="15.0" layoutX="15.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="5.0">
                                        <image>
@@ -92,11 +92,12 @@
                                           <Image url="@../graphics/icons/refresh.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fx:id="stopImageButton" fitHeight="18.0" fitWidth="18.0" layoutX="20.0" layoutY="3.0" onMouseClicked="#stopClicked" pickOnBounds="true" preserveRatio="true" scaleX="0.9" scaleY="0.9" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="3.0">
+                                    <ImageView fx:id="stopImageButton" fitHeight="18.0" fitWidth="18.0" layoutX="20.0" layoutY="3.0" onMouseClicked="#stopClicked" pickOnBounds="true" preserveRatio="true" scaleX="0.9" scaleY="0.9" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="4.0">
                                        <image>
                                           <Image url="@../graphics/icons/stopImage.png" />
                                        </image>
                                     </ImageView>
+                                    <CheckBox fx:id="modelingCheckBox" layoutX="229.0" layoutY="4.0" mnemonicParsing="false" text="Modeling" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="4.0" />
                                  </children>
                               </AnchorPane>
                            </children>

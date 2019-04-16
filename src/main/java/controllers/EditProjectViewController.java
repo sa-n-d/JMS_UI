@@ -1,9 +1,5 @@
 package controllers;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +11,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import parsers.Project;
 import parsers.ProjectParser;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class EditProjectViewController {
 
@@ -48,9 +48,9 @@ public class EditProjectViewController {
     @FXML
     private TextField filePathTextField;
 
-    private Project project;
-    private Project tempProject;
-    private String oldProjectName;
+    private Project project;                // contains current project
+    private Project tempProject;            // temp project (creating when changed/selected projectFile)
+    private String oldProjectName;          // contains previous projectName
 
     @FXML
     void initialize() {
@@ -63,14 +63,16 @@ public class EditProjectViewController {
             File file = fileChooser.showOpenDialog(changeProjectButton.getScene().getWindow());
             if(file != null) {
                 tempProject = ProjectParser.parseProjectFile(file.getAbsolutePath(), project.toString());
-                tempProject.projectIsChanged = true;
-                this.showProjectParam(tempProject);
+                if(tempProject != null){
+                    tempProject.projectIsChanged = true;
+                    this.showProjectParam(tempProject);
+                }
             }
         });
 
         saveProjectButton.setOnAction(event -> {
             String newProjectName = this.nameTextField.getText();
-            if((oldProjectName.equals(newProjectName)) ? false : ProjectParser.projectNameIsExisted(newProjectName)){
+            if((!oldProjectName.equals(newProjectName)) && ProjectParser.projectNameIsExisted(newProjectName)){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("THIS NAME ALREADY EXISTS");
                 alert.show();
@@ -93,12 +95,20 @@ public class EditProjectViewController {
         });
     }
 
+    /**
+     * Method sets selected project for edit
+     * @param project   selected project
+     */
     public void setProject(Project project){
         this.project = project;
         this.oldProjectName = project.toString();
         showProjectParam(project);
     }
 
+    /**
+     * Method set current project parameters into field of view
+     * @param project   current project
+     */
     private void showProjectParam(Project project){
 
         this.typeChoiceBox.setValue(project.getType());

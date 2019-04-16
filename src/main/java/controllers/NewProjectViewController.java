@@ -49,11 +49,13 @@ public class NewProjectViewController {
 
         addProjectButton.setOnAction(event -> {
             if(nameTextField.getText().equals("") || typeChoiceBox.getValue() == null
-                    || inputQueueTextField.getText().equals("") || outputTextField.getText().equals("")){
+                    || inputQueueTextField.getText().equals("") || outputTextField.getText().equals("") ||
+                    wfNameTextField.getText().equals("")){
                 nameTextField.setStyle("-fx-border-color: red; -fx-border-radius: 5");
                 typeChoiceBox.setStyle("-fx-border-color: red; -fx-border-radius: 5");
                 inputQueueTextField.setStyle("-fx-border-color: red; -fx-border-radius: 5");
                 outputTextField.setStyle("-fx-border-color: red; -fx-border-radius: 5");
+                wfNameTextField.setStyle("-fx-border-color: red; -fx-border-radius: 5");
                 return;
             }
             Project newProject = new Project(nameTextField.getText(), typeChoiceBox.getValue(), inputQueueTextField.getText(),
