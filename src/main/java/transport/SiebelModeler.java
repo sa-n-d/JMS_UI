@@ -5,7 +5,11 @@ import com.siebel.data.SiebelException;
 import com.siebel.data.SiebelPropertySet;
 import com.siebel.data.SiebelService;
 import controllers.MainWindowController;
+import org.xml.sax.SAXException;
+import parsers.XmlNormalizer;
 
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +49,11 @@ public class SiebelModeler {
         inputPropertySet.put("<Value>", value);
 
         String response = this.modeling("Workflow Process Manager","RunProcess", inputPropertySet);
+        try {
+            response = XmlNormalizer.normalizeXml(response);
+        } catch (IOException | SAXException | TransformerException e) {
+            controller.appendLoggerText(e.toString());
+        }
         controller.setOutputText(response);
     }
 

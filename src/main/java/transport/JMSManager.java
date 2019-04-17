@@ -2,8 +2,12 @@ package transport;
 
 import com.ibm.mq.jms.MQQueueConnectionFactory;
 import controllers.MainWindowController;
+import org.xml.sax.SAXException;
+import parsers.XmlNormalizer;
 
 import javax.jms.*;
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
 
 public class JMSManager {
 
@@ -50,10 +54,6 @@ public class JMSManager {
      */
     public void sendMessage(String xmlRequest, String inputQueue, String outputQueue){
         new Sender(xmlRequest, inputQueue, outputQueue);
-    }
-
-    public void callModeling(String wfName, String value){
-
     }
 
     /**
@@ -172,6 +172,12 @@ public class JMSManager {
                         "JMSCorrelationID = '" + jmsMessageId + "'");
                 TextMessage response = (TextMessage) queueReceiver.receive(20000);
                 responseXml = response.getText();
+
+                try {
+                    responseXml = XmlNormalizer.normalizeXml(responseXml);
+                } catch (IOException | SAXException | TransformerException e) {
+                    controller.appendLoggerText(e.toString());
+                }
                 controller.setOutputText(responseXml);
             }
             catch (JMSException ex){
@@ -214,6 +220,11 @@ public class JMSManager {
                         String jmsMessageID = request.getJMSMessageID();
                         String xmlRequest = request.getText();
                         controller.appendLoggerText("JMSMessageId = " + jmsMessageID + "\n");
+                        try {
+                            xmlRequest = XmlNormalizer.normalizeXml(xmlRequest);
+                        } catch (IOException | SAXException | TransformerException e) {
+                            controller.appendLoggerText(e.toString());
+                        }
                         controller.setOutputText(xmlRequest);
 
                         QueueSender queueDummySender = queueSession.createSender(queueSession.createQueue(outputQueue));
