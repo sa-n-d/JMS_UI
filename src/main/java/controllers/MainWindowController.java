@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -74,6 +76,15 @@ public class MainWindowController {
 
     @FXML
     private CheckBox modelingCheckBox;
+
+    @FXML
+    private TabPane bindCondTabPane;
+
+    @FXML
+    private TableView<String> bindTableView;
+
+    @FXML
+    private TableView<String> condTableView;
 
     //@FXML
     //private ContextMenu projectContextMenu;
@@ -218,6 +229,28 @@ public class MainWindowController {
         settingsStage.showAndWait();
     }
 
+
+    @FXML
+    void addBind() {
+        TableView table;
+        if(bindCondTabPane.getSelectionModel().getSelectedIndex() == 0){
+            table = bindTableView;
+        }
+        else table = condTableView;
+        ObservableList<String> row = table.getItems();
+        row.add("newRow");
+    }
+
+    @FXML
+    void removeBind() {
+        TableView table;
+        if(bindCondTabPane.getSelectionModel().getSelectedIndex() == 0){
+            table = bindTableView;
+        }
+        else table = condTableView;
+        ObservableList<String> row = table.getItems();
+    }
+
     @FXML
     void initialize() {
 
@@ -289,6 +322,10 @@ public class MainWindowController {
                     connParam.get("enterpriseServer"));
         });
 
+        VBox.setVgrow(workingTextArea, Priority.ALWAYS);
+        bindTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        condTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
     }
 
     public void refreshProjectTree(){

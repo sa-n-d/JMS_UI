@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -72,7 +73,64 @@
                      <items>
                         <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="400.0">
                            <children>
-                              <TextArea fx:id="workingTextArea" cacheShape="false" layoutX="15.0" layoutY="13.0" prefHeight="509.0" prefWidth="491.0" style="-fx-border-radius: 5;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="26.0" />
+                              <VBox layoutX="6.0" layoutY="26.0" prefHeight="586.0" prefWidth="495.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="26.0">
+                                 <children>
+                                    <TextArea fx:id="workingTextArea" cacheShape="false" layoutX="15.0" layoutY="13.0" prefHeight="300.0" prefWidth="485.0" style="-fx-border-radius: 5;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="26.0" />
+                                    <TitledPane animated="false" text="Bind/Cond">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TabPane fx:id="bindCondTabPane" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                                                  <tabs>
+                                                    <Tab text="Bind">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <TableView fx:id="bindTableView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                    <columns>
+                                                                      <TableColumn prefWidth="217.99999392032623" text="name" />
+                                                                      <TableColumn prefWidth="266.0" text="path" />
+                                                                    </columns>
+                                                                  </TableView>
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                    </Tab>
+                                                    <Tab text="Cond">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <TableView fx:id="condTableView" layoutX="14.0" layoutY="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                    <columns>
+                                                                      <TableColumn prefWidth="173.99999392032623" text="name" />
+                                                                      <TableColumn prefWidth="310.0" text="path" />
+                                                                    </columns>
+                                                                  </TableView>
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                    </Tab>
+                                                  </tabs>
+                                                </TabPane>
+                                                <ImageView fx:id="addBindImageView" fitHeight="18.0" fitWidth="18.0" onMouseClicked="#addBind" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="-5.0">
+                                                   <image>
+                                                      <Image url="@../graphics/icons/addBind.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <ImageView fx:id="removeBindImageView" fitHeight="17.0" fitWidth="17.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#removeBind" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="-5.0">
+                                                   <image>
+                                                      <Image url="@../graphics/icons/removeBind.png" />
+                                                   </image>
+                                                   <viewport>
+                                                      <Rectangle2D />
+                                                   </viewport>
+                                                </ImageView>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </TitledPane>
+                                 </children>
+                              </VBox>
                               <AnchorPane layoutX="46.0" layoutY="6.0" prefHeight="25.0" prefWidth="502.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <ImageView fx:id="runImageButton" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#runClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0">
